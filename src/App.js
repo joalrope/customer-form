@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { CustomerForm } from './Modal/CustomerForm';
+import { ModalFrm } from './Modal/ModalFrm'
 
 function App() {
+
+  const [openModal, setOpenModal] = useState(false)
+
+  const showModal = () => {
+    setOpenModal(true)
+  }
+
+  const hideModal = () => {
+    setOpenModal(false)
+  }
+
+  const result = ({ok, data}) => {
+    if (ok) {
+    alert(`Los datos introducidos son: \n ${JSON.stringify(data, null, 2)}`);
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={showModal}>Open Modal</button>
+      <ModalFrm WrappedComponent={CustomerForm} width={33} showFrm={openModal} closeFrm={hideModal} result={result}/>
     </div>
   );
 }
